@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="contact.mapper">
+
+<update id="replyDelete">
+	update web_board set admin_content = null where id = #{id}
+</update>
+
+<update id="replyInsert">
+	update web_board set admin_content = #{admin_content} where id = #{id}
+</update>
+
+<update id="update">
+	update web_board set web_pw=#{web_pw}, web_content=#{web_content}, web_name=#{web_name}
+			, type=#{type}, web_title=#{web_title}
+			, filename=#{filename, jdbcType=VARCHAR}
+			, filepath=#{filepath, jdbcType=VARCHAR}
+	where id=#{id}
+</update>
+
+<delete id="delete">
+	delete from web_board where id = #{id}	
+</delete>
+
+<select id="selectOne" resultType="contact.ContactVO">
+	select * from web_board where id = #{id}
+</select>
+
+<insert id="insert">
+	insert into web_board (web_pw, web_content, web_name, type, web_title, filename, filepath)
+	values (#{web_pw}, #{web_content}, #{web_name}, #{type}, #{web_title}, #{filename, jdbcType=VARCHAR}, #{filepath, jdbcType=VARCHAR})
+</insert>
+
+<sql id="where_search">
+	where web_content like '%' || #{keyword} || '%'
+	or web_name like '%' || #{keyword} || '%'
+	or type like '%' || #{keyword} || '%'
+	or web_title like '%' || #{keyword} || '%'
+</sql>
+
+<select id="totallist" resultType="integer">
+	select count(*) from web_board where web_content like '%' || #{keyword, jdbcType=VARCHAR} || '%'
+				 or web_name like '%' || #{keyword, jdbcType=VARCHAR} || '%'
+				 or type like '%' || #{keyword, jdbcType=VARCHAR} || '%'
+				 or web_title like '%' || #{keyword, jdbcType=VARCHAR} || '%'
+</select>
+<select id="list" resultType="contact.ContactVO">
+	select w.* 
+	from (select w.*, rownum no 
+		  from 	(select * 
+		  		 from web_board 	
+		  		 where web_content like '%' || #{keyword, jdbcType=VARCHAR} || '%'
+				 or web_name like '%' || #{keyword, jdbcType=VARCHAR} || '%'
+				 or type like '%' || #{keyword, jdbcType=VARCHAR} || '%'
+				 or web_title like '%' || #{keyword, jdbcType=VARCHAR} || '%' 
+		  		 order by id) w 
+		  order by no desc) w 
+	where no between #{beginList} and #{endList}
+</select>
+
+
+</mapper>
