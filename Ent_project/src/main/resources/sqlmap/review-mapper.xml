@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="review.mapper">
+
+<update id="replyDelete">
+	update web_review set admin_content = null where id = #{id}
+<!-- 	delete from web_review set admin_content = null where id = #{id} -->
+</update>
+
+<update id="replyinsert">
+	update web_review set admin_content = #{admin_content} 
+	where id = #{id}
+</update>
+
+<delete id="delete">
+	delete from web_review where id = #{id}
+</delete>
+
+<update id="update">
+	update web_review set type=#{type}, writer=#{writer}, title=#{title}
+			, content=#{content}
+			, filename=#{filename, jdbcType=VARCHAR}
+			, filepath=#{filepath, jdbcType=VARCHAR}
+			, rating=#{rating}, password=#{password}
+	where id=#{id}
+</update>
+
+<select id="detail" resultType="review.ReviewVO">
+	select web_review.*
+	from web_review where id = #{id}
+</select>
+
+<update id="readcnt">
+	update web_review set readcnt = readcnt + 1 
+	where id=#{id}
+</update>
+
+<insert id="insert">
+	insert into web_review
+		(type, writer, title, content, filename, filepath, rating, password)
+	values (#{type}, #{writer}, #{title}, #{content}
+			, #{filename, jdbcType=VARCHAR}	
+			, #{filepath, jdbcType=VARCHAR}
+			, #{rating}, #{password})
+</insert>
+
+<sql id="where_search">
+	where web_review like '%' || #{keyword} || '%'
+	or writer like '%' || #{keyword} || '%'
+	or type like '%' || #{keyword} || '%'
+	or title like '%' || #{keyword} || '%'
+</sql>
+
+<select id="totalList" resultType="integer">
+	select count(*) from web_review where content like '%' || #{keyword, jdbcType=VARCHAR} || '%'
+				 or writer like '%' || #{keyword, jdbcType=VARCHAR} || '%'
+				 or type like '%' || #{keyword, jdbcType=VARCHAR} || '%'
+				 or title like '%' || #{keyword, jdbcType=VARCHAR} || '%'
+</select>
+
+<select id="list" resultType="review.ReviewVO">
+	select r.* from (select r.*, rownum no from web_review r
+					 where content like '%' || #{keyword, jdbcType=VARCHAR} || '%'
+					 or writer like '%' || #{keyword, jdbcType=VARCHAR} || '%'
+					 or type like '%' || #{keyword, jdbcType=VARCHAR} || '%'
+					 or title like '%' || #{keyword, jdbcType=VARCHAR} || '%' 
+				 	 order by id) r 
+				 	 where no between #{beginList} and #{endList} order by no desc
+</select>
+
+</mapper>
