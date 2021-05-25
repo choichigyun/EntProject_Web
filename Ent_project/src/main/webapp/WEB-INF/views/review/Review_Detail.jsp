@@ -58,7 +58,7 @@
 			<tr style="border-bottom: 3px solid #ffd23e;">
 				<td colspan="5">
 					<div style="position: relative; width: 1310px; height:60px; margin: 40px 0px 40px 0px;" class="center" >
-						<a onclick="go_update()"><img src="imgs/btn-edit.png" style="width:12%;cursor:pointer; position: absolute; left:478px;"></a>
+						<a onclick="$('#review_detail').attr('action', 'modify.re');  $('#review_detail').submit()"><img src="imgs/btn-edit.png" style="width:12%;cursor:pointer; position: absolute; left:478px;"></a>
 						<a onclick="go_delete()"><img src="imgs/btndelete.png" style="width:12%;cursor:pointer;float: inherit;position: absolute; right:478px;"></a>
 						<c:if test="${empty vo.admin_content }">
 						<c:if test="${!empty admin }">
@@ -139,25 +139,16 @@ function admin_reply_delete(){
 	}
 }
 
-function go_update(){
-	var pw = prompt("비밀번호를 입력해주세요.","");
-	if(pw == ${vo.password}){
-		$('#review_detail').attr('action', 'modify.re');  $('#review_detail').submit()
-	}else {
-		alert("잘못된 비밀번호입니다.");
-		return;
-	}
-	
-}
-
 function go_delete(){
-	var pw = prompt("비밀번호를 입력해주세요.","");
-	if(pw == ${vo.password}){
+	var regpw = prompt("비밀번호를 입력해주세요.","");
+	var pw = ${vo.password};
+	/* if(regpw.value eq pw){
 		$('#review_detail').attr('action', 'delete.re');  $('#review_detail').submit();
 	}else {
 		alert("잘못된 비밀번호입니다.");
 		return;
-	}
+	} */
+	
 }
 
 </script>

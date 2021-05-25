@@ -8,14 +8,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-tr{
-padding:10px;
-font-size: 19px;
-}
-td {
-padding: 10px;
-font-size:19px;
-}
+
 </style>
 </head>
 <body>
@@ -37,10 +30,10 @@ font-size:19px;
 	<table style="width:100%; border-collapse: collapse;" id="contactus_table">
 		<tr style="background-color: #ffd23e;">
 			<th class="wpx60">번호</th>
-			<th class="wpx80">유저유형</th>
+			<th class="wpx60">유저유형</th>
 			<th class="wpx40">이름</th>
 			<th>제목</th>
-			<th class="wpx80">작성일자</th>
+			<th class="wpx60">작성일자</th>
 		</tr>
 		<c:forEach var="vo" items="${page.list }">
 			<tr>

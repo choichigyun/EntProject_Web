@@ -17,7 +17,7 @@
 	<div style="position: relative; width: 100%;">
 	<img style="width: 100%; position: relative;" src="imgs/rectangle-1.png">
 	<img style="width: 1%" src="imgs/rectangle-3.png">
-		<form id="contact_update" action="contact_update" method="post" enctype="multipart/form-data">
+		<form action="contact_update" method="post" enctype="multipart/form-data">
 		    <select id="userType" name="type" style="position: absolute; left: 19%; top: 5.6%; border: 0px; width: 11%; height: 4%; font-size: 21px; font-weight: bold; text-align-last: center;">
 	            <option value="일반" selected="selected">일반</option>
 	            <option value="사업자">사업자</option>
@@ -55,7 +55,7 @@
 		</form>
 	</div>
 	<div style="position: relative; width: 100%;">
-		<a onclick="if( necessary() ) { $('#contact_update').submit()}"><img src="imgs/btn-edit.png" style="position: absolute; left: 38%; top: 76.3%; width: 12%; cursor:pointer;"></a>
+		<a onclick="if( necessary() ) { $('form').submit()}"><img src="imgs/btn-edit.png" style="position: absolute; left: 38%; top: 76.3%; width: 12%; cursor:pointer;"></a>
 		<a onclick="contact_cancel()"><img src="imgs/btncancel.png" style="position: absolute; left: 53%; top: 76.3%; width: 12%; cursor: pointer;"></a>
 	</div>
 </div>	
@@ -75,8 +75,8 @@ if(${!empty vo.filename} ){
 	}
 }
 function contact_cancel(){
-	$("#contact_update").attr("action", "contact_detail");
-	$("#contact_update").submit();
+	$("form").attr("action", "contact_detail");
+	$("form").submit();
 }
 </script>
 </body>
