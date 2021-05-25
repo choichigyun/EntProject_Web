@@ -27,7 +27,7 @@ $('#attach-file').on('change', function(){
 	var attach = this.files[0];
 	if( attach ){
 		if( isImage(attach.name)  ){
-			var img = '<img id="preview-img" src="" class="file-img" style="width:40px;" />'
+			var img = '<img id="preview-img" src="" class="file-img" style="width:100px;" />'
 			$('#preview').html(img);
 			
 			var reader = new FileReader();

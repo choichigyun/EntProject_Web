@@ -72,7 +72,7 @@
        		var infowindow = new google.maps.InfoWindow();
        		google.maps.event.addListener(marker, 'click', (function(marker, i){
        			return function(){
-       				infowindow.setContent("가게이름 : ${vo.ent_shop}<br>카테고리 : ${vo.ent_category}");
+       				infowindow.setContent("<span style='font-weight:bold'>${vo.ent_shop}</span><br>${vo.ent_tel}<br>${vo.ent_category}");
        				infowindow.open(map,marker);
        			}
        		})(marker, i));

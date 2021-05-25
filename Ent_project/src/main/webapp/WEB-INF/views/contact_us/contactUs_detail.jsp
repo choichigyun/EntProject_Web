@@ -109,7 +109,7 @@
 if( ${!empty vo.filename} ){
 	//첨부된 파일이 있고 이미지파일인 경우 미리보기
 	if( isImage('${vo.filename}') ){
-		var img = "<img id='preview-img' class='file-img' src='${vo.filepath}' style='padding: 30px 0px 30px 50px;' />";
+		var img = "<img id='preview-img' class='file-img' src='${vo.filepath}' style='padding: 30px 0px 30px 50px; width:400px;' />";
 		$('#preview').html(img);
 	}
 }
